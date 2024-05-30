@@ -1,6 +1,6 @@
  FROM node:alpine
 
-WORKDIR /usr/app
+WORKDIR User\Desktop\notificação
 
 COPY package*.json ./
 RUN npm install
