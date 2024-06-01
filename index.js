@@ -1,7 +1,9 @@
 const express = require('express');
+
+require('dotenv').config();
 //const login = require('./login');
 
-const PORT = 3000;
+const PORT = process.env.PORT;
 const HOST = '0.0.0.0';
 
 const app = express();
@@ -10,10 +12,10 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-/*const url = 'https://client.ezpointweb.com.br/';
-const empresa = 'suaEmpresa'; 
-const usuario = 'seuUsuario'; 
-const senha = 'suaSenha';     
+/*const url = process.env.URL;
+  const empresa = process.env.EMPRESA;
+  const usuario = process.env.USUARIO;
+  const senha = process.env.SENHA;  
 
 login(url, empresa, usuario, senha).then(success => {
   if (success) {
@@ -24,5 +26,5 @@ login(url, empresa, usuario, senha).then(success => {
 });*/
 
 app.listen(PORT, HOST, () => {
-    console.log(`Server is running on http://${HOST}:${PORT}`);
+    console.log(`Server Rodando`);
 });

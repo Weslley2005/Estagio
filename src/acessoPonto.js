@@ -7,7 +7,7 @@ async function login(url, empresa, usuario, senha) {
   try {
     await page.goto(url, { waitUntil: 'networkidle2' });
 
-    await page.type('#loginUsuario', empresa);
+    await page.type('#loginEmpresa', empresa);
     await page.type('#loginUsuario', usuario);
     await page.type('#loginSenha', senha);
     await page.click('#btnSubmit');

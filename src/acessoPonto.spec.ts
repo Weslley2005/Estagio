@@ -1,4 +1,5 @@
 const login = require('./acessoPonto');
+require('dotenv').config();
 
 describe('Login Functionality', () => {
   jest.setTimeout(60000);
