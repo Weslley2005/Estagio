@@ -2,8 +2,6 @@ const login = require('./acessoPonto');
 require('dotenv').config();
 
 describe('Login Functionality', () => {
-  jest.setTimeout(60000);
-
   it('Credenciais correta', async () => {
     const url = process.env.URL;
     const empresa = process.env.EMPRESA;
