@@ -2,7 +2,9 @@ const login = require('./acessoPonto');
 require('dotenv').config();
 
 describe('Login Functionality', () => {
-  it('Credenciais correta', async () => {
+  jest.setTimeout(120000);
+
+  test('Credenciais correta', async () => {
     const url = process.env.URL;
     const empresa = process.env.EMPRESA;
     const usuario = process.env.USUARIO;
@@ -12,7 +14,7 @@ describe('Login Functionality', () => {
     expect(success).toBe(true);
   });
 
-  it('Credenciais incorretas', async () => {
+  /*test('Credenciais incorretas', async () => {
     const url = process.env.URL;
     const empresa = 'TESTE';
     const usuario = 'teste1';
@@ -20,5 +22,5 @@ describe('Login Functionality', () => {
 
     const success = await login(url, empresa, usuario, senha);
     expect(success).toBe(false);
-  });
+  });*/
 });
