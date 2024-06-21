@@ -1,8 +1,8 @@
-const login = require('./acessoPonto');
+const {login } = require('./acessoPonto');
 require('dotenv').config();
 
 describe('Login Functionality', () => {
-  jest.setTimeout(120000);
+  jest.setTimeout(60000);
 
   test('Credenciais correta', async () => {
     const url = process.env.URL;
@@ -13,14 +13,14 @@ describe('Login Functionality', () => {
     const success = await login(url, empresa, usuario, senha);
     expect(success).toBe(true);
   });
-
-  /*test('Credenciais incorretas', async () => {
-    const url = process.env.URL;
-    const empresa = 'TESTE';
-    const usuario = 'teste1';
-    const senha = 'teste2';
-
-    const success = await login(url, empresa, usuario, senha);
-    expect(success).toBe(false);
-  });*/
 });
+
+/*test('Deve coletar dados de ponto', async () => {
+  const registros = await login();
+  expect(registros).toBeInstanceOf(Array);
+});*/
+
+/*test('Deve verificar ausências de ponto', async () => {
+  const ausentes = await verificarAusencias('07:10');
+  expect(ausentes).toBeInstanceOf(Array);
+});*/
