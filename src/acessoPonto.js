@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const fs = require('fs');
 require('dotenv').config();
 
 async function login(url, empresa, usuario, senha) {
@@ -36,6 +37,9 @@ async function login(url, empresa, usuario, senha) {
     }
 
     console.log('Acessando URL de ponto...');
+    if (!process.env.URLPONTO) {
+      throw new Error('URLPONTO não está definida nas variáveis de ambiente');
+    }
     await page.goto(process.env.URLPONTO, { waitUntil: 'networkidle2' });
 
     console.log('Selecionando campo de data e inserindo a data de hoje...');
@@ -46,22 +50,32 @@ async function login(url, empresa, usuario, senha) {
     await page.evaluate((date) => {
       document.querySelector('.datepicker').value = date;
     }, formattedDate);
-    console.log('Data de hoje inserida.');
-
+    console.log('Data de hoje inserida.');  
+    
     console.log('Clicando no botão Exibir...');
     await page.click('#btnExibir');
     console.log('Botão Exibir clicado.');
 
+    console.log('Aguardando resposta da API...');
+    const usersResponse = await page.waitForResponse(
+      response => response.url() === 'https://client.ezpointweb.com.br/pontoDiaSearch.readListaFiltrada.do' && response.status() === 200
+    );
+    const users = await usersResponse.json();
+    console.log('Resposta da API recebida:', users);
+
     console.log('Fechando navegador...');
     await browser.close();
     console.log('Navegador fechado.');
-    
-    return success
+
+    return success;
+
   } catch (error) {
     console.error('Erro no login:', error);
     console.log('Fechando navegador após erro...');
     await browser.close();
     console.log('Navegador fechado após erro.');
+    throw error;
+  }
 }
-}
+
 module.exports = { login };
