@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-async function verificarPonto(pontoIndex) {
+async function verificarPontoServico(pontoIndex) {
     try {
         const rawData = fs.readFileSync('Dados.json');
         const dados = JSON.parse(rawData);
@@ -30,4 +30,4 @@ async function verificarPonto(pontoIndex) {
     }
 }
 
-module.exports = { verificarPonto };
+module.exports = { verificarPontoServico };

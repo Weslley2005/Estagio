@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const fs = require('fs');
 require('dotenv').config();
 
-async function login(url, empresa, usuario, senha) {
+async function loginServico(url, empresa, usuario, senha) {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
 
@@ -128,4 +128,4 @@ async function login(url, empresa, usuario, senha) {
   }
 }
 
-module.exports = { login };
+module.exports = { loginServico };
