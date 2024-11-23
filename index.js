@@ -103,7 +103,7 @@ async function executarVerificacaoDePontoPecas(pontoIndex) {
 }
 
 const horarios = [
-    { horario: '56 10 * * *', pontoIndex: 0 },
+    { horario: '10 07 * * *', pontoIndex: 0 },
     { horario: '10 11 * * *', pontoIndex: 1 },
     { horario: '10 13 * * *', pontoIndex: 2 },
     { horario: '10 17 * * *', pontoIndex: 3 },

@@ -30,6 +30,8 @@ async function loginServico(url, empresa, usuario, senha) {
     await page.waitForNavigation({ waitUntil: 'networkidle2', timeout: 100000 });
     console.log('Redirecionamento concluído.');
 
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
     console.log('Verificando sucesso do login...');
     const success = await page.evaluate(() => {
       return !!document.querySelector('.perfect-scrollbar-on');
@@ -40,7 +42,6 @@ async function loginServico(url, empresa, usuario, senha) {
     }
     console.log('Login bem-sucedido.');
 
-    await page.reload();
   
     console.log('Acessando URL de ponto...');
     if (!process.env.URLPONTO) {
@@ -87,7 +88,7 @@ async function loginServico(url, empresa, usuario, senha) {
         const $ = cheerio.load(text);
         
         dadosInput = $('#dadosTabela').val();
-        console.log('Valor do input hidden:', dadosInput);
+        //console.log('Valor do input hidden:', dadosInput);
         responseProcessed = true;
       }
     });

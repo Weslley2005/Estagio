@@ -30,6 +30,8 @@ async function loginPecas(url, empresa, usuario, senha) {
     await page.waitForNavigation({ waitUntil: 'networkidle2', timeout: 100000 });
     console.log('Redirecionamento concluído.');
 
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
     console.log('Verificando sucesso do login...');
     const success = await page.evaluate(() => {
       return !!document.querySelector('.perfect-scrollbar-on');
@@ -40,8 +42,29 @@ async function loginPecas(url, empresa, usuario, senha) {
     }
     console.log('Login bem-sucedido.');
 
-    await page.reload();
-  
+    await page.goto(process.env.URLCOMUNICACAO, { waitUntil: 'networkidle2' });
+
+    await page.click('#btnNovaImportacao');
+    console.log('Botão Nova Importação clicado.');
+
+    await page.goto(process.env.URLCREATE, { waitUntil: 'networkidle2' });
+
+    await page.click('#importarComunicacaoCreate > form > table > tbody > tr:nth-child(2) > td > div > div > div.available > div > a');
+    console.log('Botão Adicionar clicado.');
+
+    await new Promise(resolve => setTimeout(resolve, 5000));
+
+      try {
+        await page.evaluate(() => {
+          document.querySelector("#btnCadastrar").click();
+        });
+        console.log('Botão Cadastrar clicado.');
+      } catch (error) {
+        console.log('Erro ao tentar clicar no botão:', error);
+      }
+    
+      await new Promise(resolve => setTimeout(resolve, 15000));
+
     console.log('Acessando URL de ponto...');
     if (!process.env.URLPONTO) {
       throw new Error('URLPONTO não está definida nas variáveis de ambiente');
@@ -49,7 +72,7 @@ async function loginPecas(url, empresa, usuario, senha) {
     await page.goto(process.env.URLPONTO, { waitUntil: 'networkidle2' });
     console.log('URL de ponto acessada.');
 
-    await page.reload();
+    await page.reload({ waitUntil: 'networkidle2' });
 
     console.log('Selecionando campo de data e inserindo a data de hoje...');
     const today = new Date();
@@ -71,10 +94,8 @@ async function loginPecas(url, empresa, usuario, senha) {
     page.on('request', request => {
       if (request.url().includes(process.env.URLAPI)) {
         console.log('Requisição interceptada:', request.url());
-        request.continue();
-      } else {
-        request.continue();
       }
+      request.continue();
     });
 
     let responseProcessed = false;
@@ -87,7 +108,7 @@ async function loginPecas(url, empresa, usuario, senha) {
         const $ = cheerio.load(text);
         
         dadosInput = $('#dadosTabela').val();
-        console.log('Valor do input hidden:', dadosInput);
+
         responseProcessed = true;
       }
     });
