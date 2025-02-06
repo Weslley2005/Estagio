@@ -106,7 +106,7 @@ const horarios = [
     { horario: '10 07 * * *', pontoIndex: 0 },
     { horario: '10 11 * * *', pontoIndex: 1 },
     { horario: '10 13 * * *', pontoIndex: 2 },
-    { horario: '43 17 * * *', pontoIndex: 3 },
+    { horario: '10 17 * * *', pontoIndex: 3 },
 ];
 
 horarios.forEach(({ horario, pontoIndex }) => {
