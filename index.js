@@ -25,7 +25,7 @@ const empresaPecas = process.env.EMPRESAPECAS;
 const usuarioPecas = process.env.USUARIOPECAS;
 const senhaPecas = process.env.SENHAPECAS;
 const emailDe = process.env.EMAIL_DE;
-const emailPara = process.env.EMAIL_PARA.split(',');
+const emailPara = process.env.EMAIL_PARA;
 const emailSenha = process.env.EMAIL_SENHA;
 
 const transporter = nodemailer.createTransport({
@@ -106,7 +106,7 @@ const horarios = [
     { horario: '10 07 * * *', pontoIndex: 0 },
     { horario: '10 11 * * *', pontoIndex: 1 },
     { horario: '10 13 * * *', pontoIndex: 2 },
-    { horario: '10 17 * * *', pontoIndex: 3 },
+    { horario: '43 17 * * *', pontoIndex: 3 },
 ];
 
 horarios.forEach(({ horario, pontoIndex }) => {
